@@ -3,7 +3,6 @@ package com.practice.socket;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -25,7 +24,7 @@ public class FirstServlet extends HttpServlet {
     }
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         PrintWriter responseBody = resp.getWriter();
 
         resp.setContentType("text/html");
@@ -33,7 +32,11 @@ public class FirstServlet extends HttpServlet {
         userAgentAndIP.put(req.getHeader("user-agent"), req.getRemoteAddr());
 
         for(Map.Entry<String, String> entry : userAgentAndIP.entrySet()){
-            responseBody.println("<h3 align=\"center\">"+ "<b>" + entry.getValue() + " :: " + entry.getKey() + "</b>" + " </h3>");
+            if(req.getRemoteAddr().equals(entry.getValue())){
+                responseBody.println("<h3 align=\"center\"> <b>" + entry.getValue() + " :: " + entry.getKey() + "</b> </h3>");
+            } else {
+                responseBody.println("<h3 align=\"center\"> " + entry.getValue() + " :: " + entry.getKey() + " </h3>");
+            }
         }
     }
 
@@ -42,3 +45,7 @@ public class FirstServlet extends HttpServlet {
         log.info("Sample Servlet destroyed");
     }
 }
+
+
+
+
