@@ -33,9 +33,9 @@ public class FirstServlet extends HttpServlet {
 
         for(Map.Entry<String, String> entry : userAgentAndIP.entrySet()){
             if(req.getRemoteAddr().equals(entry.getValue())){
-                responseBody.println("<h3 align=\"center\"> <b>" + entry.getValue() + " :: " + entry.getKey() + "</b> </h3>");
+                responseBody.println("<p align=\"center\"> <b>" + entry.getValue() + " :: " + entry.getKey() + "</b> </p>");
             } else {
-                responseBody.println("<h3 align=\"center\"> " + entry.getValue() + " :: " + entry.getKey() + " </h3>");
+                responseBody.println("<p align=\"center\"> " + entry.getValue() + " :: " + entry.getKey() + " </p>");
             }
         }
     }
